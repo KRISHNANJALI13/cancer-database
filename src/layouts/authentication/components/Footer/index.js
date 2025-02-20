@@ -60,7 +60,7 @@ function Footer() {
             >
               Krishnanjali&nbsp;Pradeep {" "}
             </VuiTypography>
-            for a better AI driven world
+            for a better AI world
           </VuiTypography>
         </Grid>
         <Grid item xs={10}>

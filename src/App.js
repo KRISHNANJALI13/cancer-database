@@ -1,36 +1,16 @@
-/*!
-
-=========================================================
-* Vision UI Free React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/vision-ui-free-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-* Licensed under MIT (https://github.com/creativetimofficial/vision-ui-free-react/blob/master LICENSE.md)
-
-* Design and Coded by Simmmple & Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the software.
-
-*/
-
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
-import { Route, Switch, Redirect, useLocation } from "react-router-dom";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Icon from "@mui/material/Icon";
 
 // Vision UI Dashboard React components
 import VuiBox from "components/VuiBox";
 
 // Vision UI Dashboard React example components
-import Sidenav from "examples/Sidenav";
 import Configurator from "examples/Configurator";
 
 // Vision UI Dashboard React themes
@@ -47,10 +27,12 @@ import routes from "routes";
 
 // Vision UI Dashboard React contexts
 import { useVisionUIController, setMiniSidenav, setOpenConfigurator } from "context";
+import Tables from "layouts/tables";
+import SignIn from "layouts/authentication/sign-in"; // Import Sign-in Page
 
 export default function App() {
   const [controller, dispatch] = useVisionUIController();
-  const { miniSidenav, direction, layout, openConfigurator, sidenavColor } = controller;
+  const { miniSidenav, direction, layout, openConfigurator } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
@@ -65,7 +47,7 @@ export default function App() {
     setRtlCache(cacheRtl);
   }, []);
 
-  // Open sidenav when mouse enter on mini sidenav
+  // Open sidenav when mouse enters mini sidenav
   const handleOnMouseEnter = () => {
     if (miniSidenav && !onMouseEnter) {
       setMiniSidenav(dispatch, false);
@@ -73,7 +55,7 @@ export default function App() {
     }
   };
 
-  // Close sidenav when mouse leave mini sidenav
+  // Close sidenav when mouse leaves mini sidenav
   const handleOnMouseLeave = () => {
     if (onMouseEnter) {
       setMiniSidenav(dispatch, true);
@@ -95,6 +77,9 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
+  // Check if the user is logged in
+  const isLoggedIn = !!sessionStorage.getItem("uname");
+
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
       if (route.collapse) {
@@ -102,35 +87,30 @@ export default function App() {
       }
 
       if (route.route) {
-        return <Route exact path={route.route} component={route.component} key={route.key} />;
+        return <Route exact path={route.route} element={<route.component />} key={route.key} />;
       }
 
       return null;
     });
 
-
-
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={themeRTL}>
-        <CssBaseline />
-        
-        {layout === "vr" && <Configurator />}
-        <Switch>
-          {getRoutes(routes)}
-          <Redirect from="*" to="/authentication/sign-in" />
-        </Switch>
-      </ThemeProvider>
-    </CacheProvider>
-  ) : (
-    <ThemeProvider theme={theme}>
+  return (
+    <ThemeProvider theme={direction === "rtl" ? themeRTL : theme}>
       <CssBaseline />
-      
+
       {layout === "vr" && <Configurator />}
-      <Switch>
+
+      <Routes>
+        {/* If not logged in, redirect all routes to sign-in */}
+        <Route path="*" element={isLoggedIn ? <Navigate to="/tables" /> : <Navigate to="/authentication/sign-in" />} />
+        
+        {/* Authentication Page */}
+        <Route path="/authentication/sign-in" element={<SignIn />} />
+
+        {/* Main Dashboard Page */}
+        <Route path="/tables" element={isLoggedIn ? <Tables /> : <Navigate to="/authentication/sign-in" />} />
+
         {getRoutes(routes)}
-        <Redirect from="*" to="/authentication/sign-in" />
-      </Switch>
+      </Routes>
     </ThemeProvider>
   );
 }

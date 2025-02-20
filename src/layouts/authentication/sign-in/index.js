@@ -1,25 +1,6 @@
-/*!
-
-=========================================================
-* Vision UI Free React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/vision-ui-free-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-* Licensed under MIT (https://github.com/creativetimofficial/vision-ui-free-react/blob/master LICENSE.md)
-
-* Design and Coded by Simmmple & Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 import { useState } from "react";
-
-// react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // Vision UI Dashboard React components
 import VuiBox from "components/VuiBox";
@@ -41,24 +22,51 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 import bgSignIn from "assets/images/signInImage.png";
 
 function SignIn() {
-  const [rememberMe, setRememberMe] = useState(true);
+  const [credentials, setCredentials] = useState({ uname: "", pwd: "" });
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
+  // Handle input change
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  // Handle form submission (Login API Call)
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError(""); // Clear previous errors
+
+    try {
+      const response = await axios.post("http://localhost:4000/auth/login", credentials);
+      console.log(response);
+      if (response.data.statusCode === 200) {
+        sessionStorage.setItem("uname", credentials.uname); // Store token if provided
+        console.log(credentials.uname);
+        navigate("/tables"); // Redirect to dashboard
+      }
+    } catch (err) {
+      console.error("Login Error:", err.response ? err.response.data : err.message); // Log error response
+      setError(err.response?.data?.message || "Invalid username or password");
+    }
+    
+    
+  };
 
   return (
     <CoverLayout
       title="Nice to see you!"
       color="white"
-      description="Enter your email and password to sign in"
+      description="Enter your username and password to sign in"
       premotto="INSPIRED BY THE FUTURE:"
-      motto="THE VISION UI DASHBOARD"
+      motto="A CANCER DATABASE"
       image={bgSignIn}
     >
-      <VuiBox component="form" role="form">
+      <VuiBox component="form" role="form" onSubmit={handleLogin}>
         <VuiBox mb={2}>
           <VuiBox mb={1} ml={0.5}>
             <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
-              Email
+              Username
             </VuiTypography>
           </VuiBox>
           <GradientBorder
@@ -71,9 +79,17 @@ function SignIn() {
               palette.gradients.borderLight.angle
             )}
           >
-            <VuiInput type="email" placeholder="Your email..." fontWeight="500" />
+            <VuiInput
+              type="text"
+              placeholder="Enter your username..."
+              name="uname"
+              value={credentials.uname}
+              onChange={handleChange}
+              fontWeight="500"
+            />
           </GradientBorder>
         </VuiBox>
+
         <VuiBox mb={2}>
           <VuiBox mb={1} ml={0.5}>
             <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
@@ -92,31 +108,28 @@ function SignIn() {
           >
             <VuiInput
               type="password"
-              placeholder="Your password..."
-              sx={({ typography: { size } }) => ({
-                fontSize: size.sm,
-              })}
+              placeholder="Enter your password..."
+              name="pwd"
+              value={credentials.pwd}
+              onChange={handleChange}
+              sx={({ typography: { size } }) => ({ fontSize: size.sm })}
             />
           </GradientBorder>
         </VuiBox>
-        <VuiBox display="flex" alignItems="center">
-          <VuiSwitch color="info" checked={rememberMe} onChange={handleSetRememberMe} />
-          <VuiTypography
-            variant="caption"
-            color="white"
-            fontWeight="medium"
-            onClick={handleSetRememberMe}
-            sx={{ cursor: "pointer", userSelect: "none" }}
-          >
-            &nbsp;&nbsp;&nbsp;&nbsp;Remember me
+
+
+        {/* Show error if authentication fails */}
+        {error && (
+          <VuiTypography variant="button" color="error" fontWeight="medium">
+            {error}
           </VuiTypography>
-        </VuiBox>
+        )}
+
         <VuiBox mt={4} mb={1}>
-          <VuiButton color="info" fullWidth>
+          <VuiButton color="info" fullWidth type="submit">
             SIGN IN
           </VuiButton>
         </VuiBox>
-        
       </VuiBox>
     </CoverLayout>
   );
