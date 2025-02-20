@@ -37,30 +37,19 @@ function Footer() {
           sx={{ textAlign: "center", fontWeight: "400 !important" }}
           color="white"
         >
-          @ 2021, Made with ❤️&nbsp;&nbsp;&nbsp; by{" "}
+          @ 2025, Made with ❤️by{" "}
           <VuiTypography
             component="a"
             variant="button"
-            href="https://simmmple.com/"
+            href="https://www.linkedin.com/in/krishnanjali-pradeep-8599762ba/"
             sx={{ textAlign: "center", fontWeight: "500 !important" }}
             color="white"
             mr="2px"
           >
-            Simmmple
+            Krishnanjali&nbsp;Pradeep {" "}
           </VuiTypography>
-          &
-          <VuiTypography
-            ml="2px"
-            mr="2px"
-            component="a"
-            variant="button"
-            href="https://www.creative-tim.com/"
-            sx={{ textAlign: "center", fontWeight: "500 !important" }}
-            color="white"
-          >
-            Creative Tim
-          </VuiTypography>
-          for a better web
+          
+           for a better AI driven world
         </VuiTypography>
       </VuiBox>
       <VuiBox item xs={10}>
@@ -68,31 +57,22 @@ function Footer() {
           <VuiBox mr={{ xs: "20px", lg: "46px" }}>
             <VuiTypography
               component="a"
-              href="https://www.creative-tim.com/templates"
+              href="https://www.linkedin.com/in/krishnanjali-pradeep-8599762ba/"
               variant="body2"
               color="white"
             >
-              Marketplace
+              LinkedIn
             </VuiTypography>
           </VuiBox>
-          <VuiBox mr={{ xs: "20px", lg: "46px" }}>
-            <VuiTypography
-              component="a"
-              href="https://www.creative-tim.com/blog/"
-              variant="body2"
-              color="white"
-            >
-              Blog
-            </VuiTypography>
-          </VuiBox>
+         
           <VuiBox>
             <VuiTypography
               component="a"
-              href="https://www.creative-tim.com/license"
+              href="https://www.linkedin.com/in/krishnanjali-pradeep-8599762ba/"
               variant="body2"
               color="white"
             >
-              License
+              GitHub
             </VuiTypography>
           </VuiBox>
         </VuiBox>
