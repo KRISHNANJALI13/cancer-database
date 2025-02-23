@@ -119,7 +119,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
       <Toolbar sx={(theme) => navbarContainer(theme)}>
         <VuiBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
           <VuiTypography
-          color="info"
+          variant="h2"
+          color="primary"
           textGradient>{getGreeting()} {sessionStorage.getItem("uname")}...</VuiTypography>
         </VuiBox>
         {isMini ? null : (
