@@ -1,8 +1,8 @@
 {
-	"name": "vision-ui-dashboard-react",
+	"name": "Krishnanjali's cancer database",
 	"version": "3.0.0",
 	"private": true,
-	"author": "Creative Tim",
+	"author": "Krishnanjali Pradeep",
 	"license": "See license in https://www.creative-tim.com/license",
 	"description": "Material UI version of Vision UI Dashboard by Creative Tim",
 	"homepage": "https://demos.creative-tim.com/vision-ui-dashboard-react/#/dashboard",
@@ -73,4 +73,5 @@
 			"last 1 safari version"
 		]
 	}
+
 }
