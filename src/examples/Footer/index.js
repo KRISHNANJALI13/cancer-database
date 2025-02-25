@@ -57,22 +57,22 @@ function Footer() {
           <VuiBox mr={{ xs: "20px", lg: "46px" }}>
             <VuiTypography
               component="a"
-              href="https://www.linkedin.com/in/krishnanjali-pradeep-8599762ba/"
+              href="http://localhost:3000/upload"
               variant="body2"
               color="white"
             >
-              LinkedIn
+              AI Report Generator
             </VuiTypography>
           </VuiBox>
          
           <VuiBox>
             <VuiTypography
               component="a"
-              href="https://www.linkedin.com/in/krishnanjali-pradeep-8599762ba/"
+              href="http://localhost:3000/tables"
               variant="body2"
               color="white"
             >
-              GitHub
+              Dataset
             </VuiTypography>
           </VuiBox>
         </VuiBox>

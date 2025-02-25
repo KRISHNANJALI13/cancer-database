@@ -41,6 +41,7 @@
 // Vision UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
+import Uploads from "layouts/upload";
 // import Billing from "layouts/billing";
 // import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
@@ -73,6 +74,24 @@ const routes = [
     component: Tables,
     noCollapse: true,
   },
+  {
+    type: "collapse",
+    name: "AI predictor",
+    key: "tables",
+    route: "/upload",
+    icon: <IoStatsChart size="15px" color="inherit" />,
+    component: Uploads,
+    noCollapse: true,
+  },
+  // {
+  //   type: "collapse",
+  //   name: "AI predictor Result",
+  //   key: "tables",
+  //   route: "/result",
+  //   icon: <IoStatsChart size="15px" color="inherit" />,
+  //   component: Uploads,
+  //   noCollapse: true,
+  // },
   // {
   //   type: "collapse",
   //   name: "Billing",
