@@ -39,21 +39,27 @@ function Uploads() {
 
   const handleGenerateReport = async () => {
     if (!file) return;
-
+  
     setLoading(true);
     setReport(null);
+    setError("");
+  
     const filename = file.name.split(".")[0];
-
-    try {
-      const response = await axios.get(`http://localhost:4000/uploads/${filename}`);
-      setReport(response.data);
-    } catch (error) {
-      console.error("Error generating report:", error);
-      setError("Failed to generate report. Try again.");
-    } finally {
-      setLoading(false);
-    }
+    const delay = Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000; // Random delay between 1 and 3 seconds
+  
+    setTimeout(async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/uploads/${filename}`);
+        setReport(response.data);
+      } catch (error) {
+        console.error("Error generating report:", error);
+        setError("Failed to generate report. Try again.");
+      } finally {
+        setLoading(false);
+      }
+    }, delay);
   };
+  
 
   const handleDownloadReport = () => {
     if (!report || !report.filename) return;
