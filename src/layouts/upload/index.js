@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import { Card, CardContent, Box, Typography, Alert, CircularProgress } from "@mui/material";
+import { Card, CardContent, Box, Typography, Alert, CircularProgress, Modal  } from "@mui/material";
 import axios from "axios";
 import VuiButton from "components/VuiButton";
 import VuiTypography from "components/VuiTypography";
@@ -13,14 +13,15 @@ function Uploads() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [report, setReport] = useState(null);
+  const [hasTumor, setHasTumor] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    console.log("Accepted Files:", acceptedFiles);
-  console.log("Rejected Files:", rejectedFiles);
     if (rejectedFiles.length > 0) {
       setError("Invalid file type! Only JPG and PNG are allowed.");
       setFile(null);
       setReport(null);
+      setHasTumor(false);
       return;
     }
 
@@ -28,6 +29,7 @@ function Uploads() {
       setFile(acceptedFiles[0]);
       setError("");
       setReport(null);
+      setHasTumor(false);
     }
   }, []);
 
@@ -39,30 +41,38 @@ function Uploads() {
 
   const handleGenerateReport = async () => {
     if (!file) return;
-  
+
     setLoading(true);
     setReport(null);
     setError("");
-  
-    const filename = file.name.split(".")[0];
-    const delay = Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000; // Random delay between 1 and 3 seconds
-  
-    setTimeout(async () => {
-      try {
-        const response = await axios.get(`http://localhost:4000/uploads/${filename}`);
-        setReport(response.data);
-      } catch (error) {
-        console.error("Error generating report:", error);
-        setError("Failed to generate report. Try again.");
-      } finally {
-        setLoading(false);
+    setHasTumor(false);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("http://localhost:4000/uploads", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      if (response.data.data === "no tumor") {
+        setReport({ message: "No tumor detected." });
+      } else if (response.data.data === "Error scanning the image") {
+        setError("Error scanning the image. Please upload a valid medical image.");
+      } else {
+        setReport(response.data.data);
+        setHasTumor(true);
       }
-    }, delay);
+    } catch (err) {
+      setError("Failed to generate report. Try again.");
+      console.error("Error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
-  
 
   const handleDownloadReport = () => {
-    if (!report || !report.filename) return;
+    if (!hasTumor || !report?.filename) return;
     window.open(`http://localhost:4000/reports/${report.filename}`, "_blank");
   };
 
@@ -82,36 +92,38 @@ function Uploads() {
               {/* Dropzone */}
               <div {...getRootProps()} style={dropzoneStyle}>
                 <input {...getInputProps()} />
-                <Typography variant="h5">
-                  Click to select a file
-                </Typography>
+                <Typography variant="h5">Click to select a file</Typography>
                 <Typography variant="caption">(Only JPG or PNG allowed)</Typography>
               </div>
 
               {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
 
               {file && (
-                <VuiTypography variant="body1" sx={{ mt: 2 }}>
+                <VuiTypography
+                  variant="body1"
+                  sx={{ mt: 2, cursor: "pointer", color: "blue", textDecoration: "underline" }}
+                  onClick={() => setModalOpen(true)}
+                >
                   Selected File: {file.name}
                 </VuiTypography>
               )}
 
               {/* Generate AI Report Button */}
               <VuiButton
-  variant="contained"
-  color="success"
-  disabled={!file || loading || report} // Disable when report is generated
-  onClick={handleGenerateReport}
-  sx={{ mt: 3 }}
->
-  {loading ? <CircularProgress size={24} /> : "Generate AI Report"}
-</VuiButton>
+                variant="contained"
+                color="success"
+                disabled={!file || loading || report}
+                onClick={handleGenerateReport}
+                sx={{ mt: 3 }}
+              >
+                {loading ? <CircularProgress size={24} /> : "Generate AI Report"}
+              </VuiButton>
 
-
+              {/* Download AI Report Button (Enabled Only if Tumor is Detected) */}
               <VuiButton
                 variant="contained"
                 color="error"
-                disabled={!file || loading}
+                disabled={!hasTumor}
                 onClick={handleDownloadReport}
                 sx={{ mt: 3, ml: 8 }}
               >
@@ -121,18 +133,24 @@ function Uploads() {
               {/* Render AI Report Below */}
               {report && (
                 <Card sx={{ mt: 4, p: 2, textAlign: "left" }}>
-                  {Object.entries(report)
-                    .filter(([key]) => key !== "filename") // Exclude filename
-                    .map(([key, value]) => {
-                      if (key === "Histological Grade") {
-                        value = value === 1 ? "Low" : value === 2 ? "Intermediate" : "High";
-                      }
-                      return (
-                        <VuiTypography key={key} variant="subtitle1" color="white">
-                          <strong>{key}:</strong> {value}
-                        </VuiTypography>
-                      );
-                    })}
+                  {report.message ? (
+                    <VuiTypography variant="subtitle1" color="white">
+                      <strong>{report.message}</strong>
+                    </VuiTypography>
+                  ) : (
+                    Object.entries(report)
+                      .filter(([key]) => key !== "filename") // Exclude filename
+                      .map(([key, value]) => {
+                        if (key === "Histological Grade") {
+                          value = value === 1 ? "Low" : value === 2 ? "Intermediate" : "High";
+                        }
+                        return (
+                          <VuiTypography key={key} variant="subtitle1" color="white">
+                            <strong>{key}:</strong> {value}
+                          </VuiTypography>
+                        );
+                      })
+                  )}
                 </Card>
               )}
             </CardContent>
@@ -144,6 +162,15 @@ function Uploads() {
           <Footer />
         </Box>
       </Box>
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+        <Box sx={modalStyle}>
+          <img
+            src={file ? URL.createObjectURL(file) : ""}
+            alt="Uploaded Preview"
+            style={{ width: "100%", borderRadius: "10px" }}
+          />
+        </Box>
+      </Modal>
     </DashboardLayout>
   );
 }
@@ -155,6 +182,17 @@ const dropzoneStyle = {
   cursor: "pointer",
   textAlign: "center",
   backgroundColor: "#f9f9f9",
+};
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "60%",
+  bgcolor: "white",
+  boxShadow: 24,
+  p: 2,
+  borderRadius: "10px",
 };
 
 export default Uploads;

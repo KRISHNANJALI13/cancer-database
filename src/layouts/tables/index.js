@@ -22,7 +22,7 @@ function SarcomaTable() {
     { name: "Histological Grade", align: "center" },
     { name: "Metastasis", align: "center" },
     { name: "Survival Months", align: "center" },
-    { name: "Survival Status", align: "center" },
+    // { name: "Survival Status", align: "center" },
     { name: "File", align: "center" }
   ]);
   
@@ -129,7 +129,7 @@ function SarcomaTable() {
 
   const handleSnackbarOpen = (patient) => {
     setSnackbarContent(
-      `Country: ${patient.country}\nGender: ${patient.gender}\nAge: ${patient.age}`
+      `Country: ${patient.country}\nGender: ${patient.gender}\nAge: ${patient.age}\nSurvival Status: ${patient.survival_status}`
     );
     setShowSnackbar(true);
     // setTimeout(() => setShowSnackbar(false), 3000);
