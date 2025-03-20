@@ -21,7 +21,7 @@ function SarcomaTable() {
     { name: "Tumor Location", align: "center" },
     { name: "Histological Grade", align: "center" },
     { name: "Metastasis", align: "center" },
-    { name: "Survival Months", align: "center" },
+    // { name: "Survival Months", align: "center" },
     // { name: "Survival Status", align: "center" },
     { name: "File", align: "center" }
   ]);
