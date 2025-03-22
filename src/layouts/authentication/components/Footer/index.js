@@ -49,7 +49,7 @@ function Footer() {
             sx={{ textAlign: "center", fontWeight: "400 !important" }}
             color="text"
           >
-            @ 2025, Made with ❤️ by{" "}
+            @ 2025, Made by{" "}
             <VuiTypography
               component="a"
               variant="button"
@@ -60,7 +60,7 @@ function Footer() {
             >
               Krishnanjali&nbsp;Pradeep {" "}
             </VuiTypography>
-            for a better AI world
+            - 192220042
           </VuiTypography>
         </Grid>
         <Grid item xs={10}>

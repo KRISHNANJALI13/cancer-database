@@ -1,22 +1,3 @@
-/*!
-
-=========================================================
-* Vision UI Free React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/vision-ui-free-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-* Licensed under MIT (https://github.com/creativetimofficial/vision-ui-free-react/blob/master LICENSE.md)
-
-* Design and Coded by Simmmple & Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// Vision UI Dashboard React components
 import VuiBox from "components/VuiBox";
 import VuiTypography from "components/VuiTypography";
 
@@ -26,7 +7,6 @@ function Footer() {
       display="flex"
       flexDirection={{ xs: "column", lg: "row" }}
       justifyContent="space-between"
-      direction="row"
       component="footer"
       py={2}
       pb={0}
@@ -37,7 +17,7 @@ function Footer() {
           sx={{ textAlign: "center", fontWeight: "400 !important" }}
           color="white"
         >
-          @ 2025, Made with ❤️by{" "}
+          @ 2025, Made by{" "}
           <VuiTypography
             component="a"
             variant="button"
@@ -46,33 +26,44 @@ function Footer() {
             color="white"
             mr="2px"
           >
-            Krishnanjali&nbsp;Pradeep {" "}
+            Krishnanjali&nbsp;Pradeep{" "}
           </VuiTypography>
-          
-           for a better AI world
+          - 192220042
         </VuiTypography>
       </VuiBox>
+
       <VuiBox item xs={10}>
-        <VuiBox display="flex" justifyContent="center" flexWrap="wrap" mb={3}>
-          <VuiBox mr={{ xs: "20px", lg: "46px" }}>
+        <VuiBox display="flex" justifyContent="center" width="100%" flexWrap="nowrap" mb={3}>
+          <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="120px">
             <VuiTypography
               component="a"
               href="http://localhost:3000/upload"
               variant="body2"
               color="white"
             >
-              AI Report Generator
+              AI Report
             </VuiTypography>
           </VuiBox>
-         
-          <VuiBox>
+
+          <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="150px">
             <VuiTypography
               component="a"
               href="http://localhost:3000/tables"
               variant="body2"
               color="white"
             >
-              Dataset
+              Sarcoma Cancer
+            </VuiTypography>
+          </VuiBox>
+
+          <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="150px">
+            <VuiTypography
+              component="a"
+              href="http://localhost:3000/lung"
+              variant="body2"
+              color="white"
+            >
+              Lung Cancer
             </VuiTypography>
           </VuiBox>
         </VuiBox>

@@ -7,34 +7,29 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
 import VuiSnackbar from "components/VuiSnackbar/Vuisnackbar";
+import BarChart from "examples/Charts/BarCharts/BarChart";
 
-function SarcomaTable() {
+function LungTable() {
   const [columns] = useState([
     { name: "Patient ID", align: "left" },
-    { name: "Tumor Size (cm)", align: "center" },
-    { name: "Tumor Location", align: "center" },
-    { name: "Histological Grade", align: "center" },
-    { name: "Metastasis", align: "center" },
-    // { name: "Survival Months", align: "center" },
-    // { name: "Survival Status", align: "center" },
-    { name: "File", align: "center" }
+    { name: "Air Pollution", align: "center" },
+    { name: "Dust Allergy", align: "center" },
+    { name: "Genetics", align: "center" },
+    { name: "Chronic Lung Disease", align: "center" },
+    { name: "Obesity", align: "center" },
+    { name: "Smoking", align: "center" },
+    { name: "Passive Smoking", align: "center" },
+    { name: "Wheezing", align: "center" },
+    { name: "Dry Cough", align: "center" },
+    { name: "Level", align: "center" }
   ]);
-  
 
   const [rows, setRows] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef(null);
-
-  const [open, setOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarContent, setSnackbarContent] = useState("");
 
@@ -46,7 +41,7 @@ function SarcomaTable() {
     if (!hasMore || loading) return;
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:4000/sarcoma?page=${page}&limit=10`);
+      const response = await axios.get(`http://localhost:4000/lung?page=${page}&limit=10`);
       const newRows = response.data.data.map((item) => ({
         "Patient ID": (
           <VuiTypography
@@ -55,45 +50,28 @@ function SarcomaTable() {
             style={{ cursor: "pointer", textDecoration: "bold" }}
             onClick={() => handleSnackbarOpen(item)}
           >
-            {item.patient_id}
+            {item.Patient_Id}
           </VuiTypography>
         ),
-        age: item.age,
-        gender: item.gender,
-        country: item.country,
-        "Tumor Size (cm)": item.tumor_size_cm,
-        "Tumor Location": item.tumor_location,
-        "Histological Grade": (
+        "Air Pollution": item.air_pollution,
+        "Dust Allergy": item.dust_allergy,
+        "Genetics": item.genetics,
+        "Chronic Lung Disease": item.chronic_lung,
+        "Obesity": item.obesity,
+        "Smoking": item.smoking,
+        "Passive Smoking": item.passive_smoker,
+        "Wheezing": item.wheezing,
+        "Dry Cough": item.dry_cough,
+        "Level": (
           <VuiTypography
             variant="button"
             style={{
-              color: item.histological_grade === "High" ? "red" :
-                     item.histological_grade === "Intermediate" ? "orange" :
-                     "yellow",
+              color:
+                item.level === "High" ? "red" :
+                item.level === "Medium" ? "orange" : "yellow",
             }}
           >
-            {item.histological_grade}
-          </VuiTypography>
-        ),
-        "Metastasis": item.metastasis,
-        "Survival Months": item.survival_months,
-  "Survival Status": item.survival_status === "Alive" ? (
-    <VuiTypography variant="button" color="success">
-      {item.survival_status}
-    </VuiTypography>
-  ) : (
-    <VuiTypography variant="button" color="error">
-      {item.survival_status}
-    </VuiTypography>
-  ),
-        File: (
-          <VuiTypography
-            variant="button"
-            color="primary"
-            style={{ cursor: "pointer", textDecoration: "bold" }}
-            onClick={() => handleOpenModal(item.file)}
-          >
-            View Image
+            {item.level}
           </VuiTypography>
         )
       }));
@@ -118,23 +96,12 @@ function SarcomaTable() {
     if (node) observer.current.observe(node);
   }, [loading, hasMore]);
 
-  const handleOpenModal = (fileName) => {
-    setSelectedImage(`http://localhost:4000/images/${fileName}.jpg`);
-    setOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpen(false);
-  };
-
   const handleSnackbarOpen = (patient) => {
     setSnackbarContent(
-      `Country: ${patient.country}\nGender: ${patient.gender}\nAge: ${patient.age}\nSurvival Status: ${patient.survival_status}`
+      `Age: ${patient.age}\nGender: ${patient.gender}\nOccupational Hazards: ${patient.occupational_hazards}\nChest Pain: ${patient.chest_pain}\nCoughing Blood: ${patient.coughing_of_blood}\nWeight Loss: ${patient.weight_loss}\nFrequent Cold: ${patient.frequent_cold}\nSnoring: ${patient.snoring}`
     );
     setShowSnackbar(true);
-    // setTimeout(() => setShowSnackbar(false), 3000);
   };
-  
 
   return (
     <DashboardLayout>
@@ -144,33 +111,23 @@ function SarcomaTable() {
           <Card>
             <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb="22px">
               <VuiTypography variant="lg" color="white">
-                Sarcoma Dataset
+                Lung Cancer Dataset
               </VuiTypography>
             </VuiBox>
             <VuiBox style={{ maxHeight: "445px", overflowY: "auto" }}>
-              <Table columns={columns} rows={rows} />
+              <Table columns={columns} rows={rows}/>
               <div ref={lastRowRef} style={{ height: "20px" }} />
               {loading && <VuiTypography variant="caption" color="white">Loading...</VuiTypography>}
             </VuiBox>
           </Card>
         </VuiBox>
       </VuiBox>
+      {/* <VuiBox>
+        <BarChart
+            data={[{data: [1,2,3]}]}
+        />
+      </VuiBox> */}
       <Footer />
-
-      {/* Image Modal */}
-      <Dialog open={open} onClose={handleCloseModal} maxWidth="md">
-        <DialogTitle>Patient File</DialogTitle>
-        <DialogContent>
-          <img 
-            src={selectedImage} 
-            alt="Patient File" 
-            style={{ width: "100%", height: "auto", borderRadius: "8px" }} 
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseModal} color="primary">Close</Button>
-        </DialogActions>
-      </Dialog>
 
       {/* Snackbar */}
       <VuiSnackbar
@@ -185,4 +142,4 @@ function SarcomaTable() {
   );
 }
 
-export default SarcomaTable;
+export default LungTable;

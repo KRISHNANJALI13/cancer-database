@@ -121,7 +121,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
           <VuiTypography
           variant="h2"
           color="primary"
-          textGradient>{getGreeting()} {sessionStorage.getItem("uname")}...</VuiTypography>
+          textGradient>AI driven Cancer Database</VuiTypography>
         </VuiBox>
         {isMini ? null : (
           <VuiBox sx={(theme) => navbarRow(theme, { isMini })}>
@@ -143,7 +143,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                     fontWeight="medium"
                     color={light ? "white" : "dark"}
                   >
-                    Sign out
+                    Sign out {sessionStorage.getItem("uname")}
                   </VuiTypography>
                 </IconButton>
               </Link>
