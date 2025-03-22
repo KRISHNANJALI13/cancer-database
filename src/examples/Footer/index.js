@@ -1,6 +1,6 @@
 import VuiBox from "components/VuiBox";
 import VuiTypography from "components/VuiTypography";
-
+import React from "react";
 function Footer() {
   return (
     <VuiBox
@@ -65,6 +65,18 @@ function Footer() {
             >
               Lung Cancer
             </VuiTypography>
+            
+          </VuiBox>
+          <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="150px">
+            <VuiTypography
+              component="a"
+              href="http://localhost:3000/brain-tumor"
+              variant="body2"
+              color="white"
+            >
+              Brain Tumor
+            </VuiTypography>
+            
           </VuiBox>
         </VuiBox>
       </VuiBox>
