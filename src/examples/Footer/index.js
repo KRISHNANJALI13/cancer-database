@@ -55,18 +55,6 @@ function Footer() {
               Sarcoma Cancer
             </VuiTypography>
           </VuiBox>
-
-          <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="150px">
-            <VuiTypography
-              component="a"
-              href="http://localhost:3000/lung"
-              variant="body2"
-              color="white"
-            >
-              Lung Cancer
-            </VuiTypography>
-            
-          </VuiBox>
           <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="150px">
             <VuiTypography
               component="a"
@@ -75,6 +63,28 @@ function Footer() {
               color="white"
             >
               Brain Tumor
+            </VuiTypography>
+            
+          </VuiBox>
+          <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="150px">
+            <VuiTypography
+              component="a"
+              href="http://localhost:3000/leukemia"
+              variant="body2"
+              color="white"
+            >
+              Leukemia
+            </VuiTypography>
+            
+          </VuiBox>
+          <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="150px">
+            <VuiTypography
+              component="a"
+              href="http://localhost:3000/lung"
+              variant="body2"
+              color="white"
+            >
+              Lung Cancer
             </VuiTypography>
             
           </VuiBox>

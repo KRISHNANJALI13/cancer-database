@@ -15,6 +15,7 @@ import { IoStatsChart } from "react-icons/io5";
 import { IoHome } from "react-icons/io5";
 import LungTable from "layouts/lungTable";
 import BrainTumorTable from "layouts/brainTumor";
+import LeukemiaTable from "layouts/leukemia";
 
 const routes = [
   {
@@ -60,6 +61,15 @@ const routes = [
     route: "/brain-tumor",
     icon: <IoStatsChart size="15px" color="inherit" />,
     component: BrainTumorTable,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "AI predictor",
+    key: "tables",
+    route: "/leukemia",
+    icon: <IoStatsChart size="15px" color="inherit" />,
+    component: LeukemiaTable,
     noCollapse: true,
   },
   // {

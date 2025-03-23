@@ -56,7 +56,7 @@ function Uploads() {
       });
 
       if (response.data.data === "no tumor") {
-        setReport({ message: "No tumor detected." });
+        setReport({ message: "No Tumor Detected!" });
       } else if (response.data.data === "Error scanning the image") {
         setError("Error scanning the image. Please upload a valid medical image.");
       } else {
