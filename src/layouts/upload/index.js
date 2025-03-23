@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import { Card, CardContent, Box, Typography, Alert, CircularProgress, Modal  } from "@mui/material";
+import { Card, CardContent, Box, Typography, Alert, CircularProgress, Modal } from "@mui/material";
 import axios from "axios";
 import VuiButton from "components/VuiButton";
 import VuiTypography from "components/VuiTypography";
@@ -60,8 +60,9 @@ function Uploads() {
       } else if (response.data.data === "Error scanning the image") {
         setError("Error scanning the image. Please upload a valid medical image.");
       } else {
-        setReport(response.data.data);
-        setHasTumor(true);
+        const reportData = response.data.data;
+        setReport(reportData);
+        setHasTumor(reportData["Type of Cancer"] ? true : false);
       }
     } catch (err) {
       setError("Failed to generate report. Try again.");
@@ -79,25 +80,19 @@ function Uploads() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-
-      {/* FLEX CONTAINER TO PUSH FOOTER TO BOTTOM */}
       <Box sx={{ display: "flex", flexDirection: "column", minHeight: "84vh" }}>
-        {/* CONTENT AREA */}
         <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Card sx={{ p: 3, width: "60%", textAlign: "center" }}>
             <VuiTypography variant="h2" color="info" textGradient textAlign="left">
               AI Report Generator
             </VuiTypography>
             <CardContent sx={{ mt: 3 }}>
-              {/* Dropzone */}
               <div {...getRootProps()} style={dropzoneStyle}>
                 <input {...getInputProps()} />
                 <Typography variant="h5">Click to select a file</Typography>
                 <Typography variant="caption">(Only JPG or PNG allowed)</Typography>
               </div>
-
               {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
-
               {file && (
                 <VuiTypography
                   variant="body1"
@@ -107,8 +102,6 @@ function Uploads() {
                   Selected File: {file.name}
                 </VuiTypography>
               )}
-
-              {/* Generate AI Report Button */}
               <VuiButton
                 variant="contained"
                 color="success"
@@ -118,8 +111,6 @@ function Uploads() {
               >
                 {loading ? <CircularProgress size={24} /> : "Generate AI Report"}
               </VuiButton>
-
-              {/* Download AI Report Button (Enabled Only if Tumor is Detected) */}
               <VuiButton
                 variant="contained"
                 color="error"
@@ -129,8 +120,6 @@ function Uploads() {
               >
                 {loading ? <CircularProgress size={24} /> : "Download AI Report"}
               </VuiButton>
-
-              {/* Render AI Report Below */}
               {report && (
                 <Card sx={{ mt: 4, p: 2, textAlign: "left" }}>
                   {report.message ? (
@@ -139,25 +128,18 @@ function Uploads() {
                     </VuiTypography>
                   ) : (
                     Object.entries(report)
-                      .filter(([key]) => key !== "filename") // Exclude filename
-                      .map(([key, value]) => {
-                        if (key === "Histological Grade") {
-                          value = value === 1 ? "Low" : value === 2 ? "Intermediate" : "High";
-                        }
-                        return (
-                          <VuiTypography key={key} variant="subtitle1" color="white">
-                            <strong>{key}:</strong> {value}
-                          </VuiTypography>
-                        );
-                      })
+                      .filter(([key]) => key !== "filename")
+                      .map(([key, value]) => (
+                        <VuiTypography key={key} variant="subtitle1" color="white">
+                          <strong>{key}:</strong> {value}
+                        </VuiTypography>
+                      ))
                   )}
                 </Card>
               )}
             </CardContent>
           </Card>
         </Box>
-
-        {/* FOOTER ALWAYS AT THE BOTTOM */}
         <Box sx={{ mt: "auto" }}>
           <Footer />
         </Box>

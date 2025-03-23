@@ -19,6 +19,8 @@ function BrainTumorTable() {
   const [columns] = useState([
     { name: "Image", align: "center" },
     { name: "Class", align: "center" },
+    { name: "Location", align: "center" },
+    { name: "Shape", align: "center" },
     { name: "Mean", align: "center" },
     { name: "Variance", align: "center" },
     { name: "Standard Deviation", align: "center" },
@@ -64,6 +66,8 @@ function BrainTumorTable() {
           </VuiTypography>
         ),
         Class: item.Class,
+        Location: item.location,
+        Shape: item.shape,
         Mean: item.Mean,
         Variance: item.Variance,
         "Standard Deviation": item["Standard Deviation"],
