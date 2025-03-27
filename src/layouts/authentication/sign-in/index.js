@@ -43,7 +43,7 @@ function SignIn() {
       if (response.data.statusCode === 200) {
         sessionStorage.setItem("uname", credentials.uname); // Store token if provided
         console.log(credentials.uname);
-        navigate("/tables"); // Redirect to dashboard
+        navigate("/"); // Redirect to dashboard
       }
     } catch (err) {
       console.error("Login Error:", err.response ? err.response.data : err.message); // Log error response
@@ -58,8 +58,8 @@ function SignIn() {
       title="Nice to see you!"
       color="white"
       description="Enter your username and password to sign in"
-      premotto="INSPIRED BY THE FUTURE:"
-      motto="A CANCER DATABASE"
+      premotto="MEDICAL IMAGING DATABASE FOR"
+      motto="CANCER DETECTION"
       image={bgSignIn}
     >
       <VuiBox component="form" role="form" onSubmit={handleLogin}>

@@ -9,6 +9,7 @@ import VuiTypography from "components/VuiTypography";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Welcome from "./components/Welcome";
 import DashFooter from "examples/dashFooter";
+import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 
 const descriptions = {
   Sarcoma: "Sarcoma is a type of cancer that develops in the bones and soft tissues, including fat, muscle, and blood vessels. This dataset provides an overview of the tumor size, its location, histological grade, and metastasis. Each record includes an associated medical image, with a total of 250 records available. Additional details such as patient age, gender, and location are also provided.",
@@ -36,7 +37,7 @@ function Overview() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      <DefaultNavbar />
       <VuiBox mt={5} mb={3}>
       <Grid 
     container 
@@ -98,30 +99,59 @@ function Overview() {
       </Card>
     </Grid>
   </Grid>
-      <VuiBox mt={4}>
-        <VuiTypography variant="h3" fontWeight="bold" color="white" gutterBottom>
-          Cancer Identification & Reporting Tool
+  <VuiBox mt={4}>
+        <VuiTypography variant="h3" fontWeight="bold" color="white" gutterBottom align="center">
+          Cancer Identification, Reporting & Predicting Tools
         </VuiTypography>
-        <Card sx={{ padding: 3 }}>
-          <VuiTypography variant="body1" color="text">
-            This tool leverages image processing using Python flask to analyze medical images and generate detailed reports on detected abnormalities using data pulled from the databases. And it allows the user to download a detailed report in PDF format.
-          </VuiTypography>
-          <VuiButton
-            variant="outlined"
-            color="white"
-            size="medium"
-            circular="true"
-            onClick={() => navigate("/upload")}
-            sx={{
-              mt: 4,
-              textTransform: "none",
-              alignSelf: "flex-start",
-            }}
-          >
-           Go to tool
-          </VuiButton>
-        </Card>
+        <Grid container spacing={3}>
+          {/* First Card */}
+          <Grid item xs={12} md={6}>
+            <Card sx={{ padding: 3 }}>
+              <VuiTypography variant="body1" color="text">
+                The <strong>Cancer identification & Report Generator</strong> tool leverages image processing using Python flask to analyze medical images of sarcoma, brain tumor and leukemia to generate detailed reports on detected abnormalities using data pulled from the databases. And it allows the user to download a detailed report in PDF format.
+              </VuiTypography>
+              <VuiButton
+                variant="outlined"
+                color="white"
+                size="medium"
+                circular="true"
+                onClick={() => navigate("/upload")}
+                sx={{
+                  mt: 4,
+                  textTransform: "none",
+                  alignSelf: "flex-start",
+                }}
+              >
+                Go to Identification tool
+              </VuiButton>
+            </Card>
+          </Grid>
+          
+          {/* Second Identical Card */}
+          <Grid item xs={12} md={6}>
+            <Card sx={{ padding: 3 }}>
+              <VuiTypography variant="body1" color="text">
+                The <strong>Lung Cancer Risk Predictor</strong> tool utilizes Random Forest algorithm to analyze the lung cancer dataset to generate predictions of the liklihood of lung cancer based on user symptom input. Random Forest is the best ML algorithm to produce the most accurate results!
+              </VuiTypography>
+              <VuiButton
+                variant="outlined"
+                color="white"
+                size="medium"
+                circular="true"
+                onClick={() => navigate("/lung-predictor")}
+                sx={{
+                  mt: 4,
+                  textTransform: "none",
+                  alignSelf: "flex-start",
+                }}
+              >
+                Go to Prediction tool
+              </VuiButton>
+            </Card>
+          </Grid>
+        </Grid>
       </VuiBox>
+
       </VuiBox>
 
       <DashFooter />
