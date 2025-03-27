@@ -1,7 +1,7 @@
 import VuiBox from "components/VuiBox";
 import VuiTypography from "components/VuiTypography";
 import React from "react";
-function Footer() {
+function DashFooter() {
   return (
     <VuiBox
       display="flex"
@@ -34,18 +34,18 @@ function Footer() {
 
       <VuiBox item xs={10}>
         <VuiBox display="flex" justifyContent="center" width="100%" flexWrap="nowrap" mb={3}>
-          <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="120px">
+          {/* <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="120px">
             <VuiTypography
               component="a"
               href="http://localhost:3000/upload"
               variant="body2"
               color="white"
             >
-              Cancer Report
+              AI Report
             </VuiTypography>
-          </VuiBox>
+          </VuiBox> */}
 
-          <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="150px">
+          {/* <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="150px">
             <VuiTypography
               component="a"
               href="http://localhost:3000/tables"
@@ -85,13 +85,13 @@ function Footer() {
               color="white"
             >
               Lung Cancer
-            </VuiTypography>
+            </VuiTypography> */}
             
-          </VuiBox>
+          {/* </VuiBox> */}
         </VuiBox>
       </VuiBox>
     </VuiBox>
   );
 }
 
-export default Footer;
+export default DashFooter;

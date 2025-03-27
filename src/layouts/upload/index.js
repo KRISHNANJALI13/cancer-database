@@ -83,8 +83,8 @@ function Uploads() {
       <Box sx={{ display: "flex", flexDirection: "column", minHeight: "84vh" }}>
         <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Card sx={{ p: 3, width: "60%", textAlign: "center" }}>
-            <VuiTypography variant="h2" color="info" textGradient textAlign="left">
-              AI Report Generator
+            <VuiTypography variant="h2" color="info" textGradient textAlign="center">
+              Cancer identification & Report Generator
             </VuiTypography>
             <CardContent sx={{ mt: 3 }}>
               <div {...getRootProps()} style={dropzoneStyle}>

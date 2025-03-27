@@ -13,6 +13,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
+import { FaRibbon, FaDroplet, FaBrain, FaLungs } from "react-icons/fa6";
 
 
 function BrainTumorTable() {
@@ -131,7 +132,7 @@ function BrainTumorTable() {
           <Card>
             <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb="22px">
               <VuiTypography variant="lg" color="white">
-                Brain Tumor Dataset
+              <FaBrain color="white" size="16px" /> Brain Tumor Dataset
               </VuiTypography>
             </VuiBox>
             <VuiBox style={{ maxHeight: "445px", overflowY: "auto" }}>

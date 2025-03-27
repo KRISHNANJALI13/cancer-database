@@ -29,6 +29,7 @@ import routes from "routes";
 import { useVisionUIController, setMiniSidenav, setOpenConfigurator } from "context";
 import Tables from "layouts/tables";
 import SignIn from "layouts/authentication/sign-in"; // Import Sign-in Page
+import Overview from "layouts/profile";
 
 export default function App() {
   const [controller, dispatch] = useVisionUIController();
@@ -101,13 +102,13 @@ export default function App() {
 
       <Routes>
         {/* If not logged in, redirect all routes to sign-in */}
-        <Route path="*" element={isLoggedIn ? <Navigate to="/tables" /> : <Navigate to="/authentication/sign-in" />} />
+        <Route path="*" element={isLoggedIn ? <Navigate to="/dashboard" /> : <Navigate to="/authentication/sign-in" />} />
         
         {/* Authentication Page */}
         <Route path="/authentication/sign-in" element={<SignIn />} />
 
         {/* Main Dashboard Page */}
-        <Route path="/tables" element={isLoggedIn ? <Tables /> : <Navigate to="/authentication/sign-in" />} />
+        <Route path="/dashboard" element={isLoggedIn ? <Overview /> : <Navigate to="/authentication/sign-in" />} />
 
         {getRoutes(routes)}
       </Routes>

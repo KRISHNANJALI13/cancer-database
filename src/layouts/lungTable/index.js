@@ -9,6 +9,7 @@ import Footer from "examples/Footer";
 import Table from "examples/Tables/Table";
 import VuiSnackbar from "components/VuiSnackbar/Vuisnackbar";
 import BarChart from "examples/Charts/BarCharts/BarChart";
+import { FaRibbon, FaDroplet, FaBrain, FaLungs } from "react-icons/fa6";
 
 function LungTable() {
   const [columns] = useState([
@@ -111,7 +112,7 @@ function LungTable() {
           <Card>
             <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb="22px">
               <VuiTypography variant="lg" color="white">
-                Lung Cancer Dataset
+              <FaLungs color="white" size="16px" /> Lung Cancer Dataset
               </VuiTypography>
             </VuiBox>
             <VuiBox style={{ maxHeight: "445px", overflowY: "auto" }}>

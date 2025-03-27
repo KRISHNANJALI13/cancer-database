@@ -2,7 +2,7 @@ import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Uploads from "layouts/upload";
 // import Billing from "layouts/billing";
-// import Profile from "layouts/profile";
+import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 
 // Vision UI Dashboard React icons
@@ -20,11 +20,11 @@ import LeukemiaTable from "layouts/leukemia";
 const routes = [
   {
     type: "collapse",
-    name: "Dashboard",
-    key: "dashboard",
+    name: "Profile",
+    key: "profile",
     route: "/dashboard",
-    icon: <IoHome size="15px" color="inherit" />,
-    component: Dashboard,
+    icon: <BsFillPersonFill size="15px" color="inherit" />,
+    component: Profile,
     noCollapse: true,
   },
   {
@@ -91,15 +91,7 @@ const routes = [
   //   noCollapse: true,
   // },
   // { type: "title", title: "Account Pages", key: "account-pages" },
-  // {
-  //   type: "collapse",
-  //   name: "Profile",
-  //   key: "profile",
-  //   route: "/profile",
-  //   icon: <BsFillPersonFill size="15px" color="inherit" />,
-  //   component: Profile,
-  //   noCollapse: true,
-  // },
+  
   {
     type: "collapse",
     name: "Sign In",

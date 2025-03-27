@@ -12,6 +12,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
+import { FaRibbon, FaDroplet, FaBrain, FaLungs } from "react-icons/fa6";
 
 function LeukemiaTable() {
   const [columns] = useState([
@@ -102,7 +103,7 @@ function LeukemiaTable() {
           <Card>
             <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb="22px">
               <VuiTypography variant="lg" color="white">
-                Leukemia Dataset
+              <FaDroplet color="white" size="16px" /> Leukemia Dataset
               </VuiTypography>
             </VuiBox>
             <VuiBox style={{ maxHeight: "445px", overflowY: "auto" }}>
