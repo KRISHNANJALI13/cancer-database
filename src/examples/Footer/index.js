@@ -34,17 +34,6 @@ function Footer() {
 
       <VuiBox item xs={10}>
         <VuiBox display="flex" justifyContent="center" width="100%" flexWrap="nowrap" mb={3}>
-          <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="120px">
-            <VuiTypography
-              component="a"
-              href="http://localhost:3000/upload"
-              variant="body2"
-              color="white"
-            >
-              Cancer Report
-            </VuiTypography>
-          </VuiBox>
-
           <VuiBox flexGrow={1} display="flex" justifyContent="center" minWidth="150px">
             <VuiTypography
               component="a"
