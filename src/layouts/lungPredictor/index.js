@@ -70,6 +70,12 @@ function LungPredictor() {
 
   const allZero = Object.values(values).every((val) => val === 0);
 
+  const toTitleCase = (str) =>
+    str.replace(/_/g, " ").replace(/\w\S*/g, (txt) =>
+      txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    );
+  
+
   const getRiskColor = (risk) => {
     switch (risk.toLowerCase()) {
       case "high":
@@ -92,14 +98,17 @@ function LungPredictor() {
             <VuiTypography variant="h2" color="info" textGradient textAlign="center">
               Lung Cancer Risk Predictor
             </VuiTypography>
+            <VuiTypography textAlign="center" variant="body2" color="white" mb={2} mt={3}>
+              This tool predicts the risk of lung cancer and its level based on various health and lifestyle factors. On a scale of 0 to 10, please rate the following factors based on your health and lifestyle that you seem appropriate:
+            </VuiTypography>
             <CardContent>
               <Grid container spacing={3}>
                 {[0, 1, 2].map((col) => (
                   <Grid item xs={12} md={4} key={col}>
                     {sliderFields.slice(col * 5, (col + 1) * 5).map((field) => (
                       <VuiBox key={field} mb={2}>
-                        <Typography variant="h6" color="white">
-                          {field.replace(/_/g, " ")}
+                        <Typography variant="h5" color="white">
+                            {toTitleCase(field)}
                         </Typography>
                         <Slider
                           value={values[field]}
